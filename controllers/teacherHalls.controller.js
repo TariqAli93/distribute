@@ -77,7 +77,7 @@ export const find = async (req, res) => {
         })
         const filters = _.groupBy(getAll, th => th.hall.HallName)
         console.log("🚀 ~ file: teacherHalls.controller.js ~ line 73 ~ find ~ filters", filters)
-        res.status(200).send(filters)
+        res.status(200).send(getAll)
     } catch (error) {
         console.log("🚀 ~ file: teacherHalls.controller.js ~ line 73 ~ find ~ error", error.message)
         res.status(500).send({ message: error.message })

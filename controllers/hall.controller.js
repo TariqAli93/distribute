@@ -64,7 +64,20 @@ export const remove = async (req, res) => {
 
 export const find = async (req, res) => {
     try {
-        const getAll = await prisma.halls.findMany()
+        const getAll = await prisma.halls.findMany({
+            include: {
+                TeacherHalls: {
+                    include: {
+                        teacher: {
+                            include: {
+                                role: true
+                            }
+                        },
+                        group: true,
+                    }
+                },
+            }
+        })
         console.log("🚀 ~ file: hall.controller.js ~ line 67 ~ find ~ getAll", getAll)
         res.status(200).send(getAll)
     } catch (error) {
@@ -79,6 +92,18 @@ export const findOne = async (req, res) => {
         const getById = await prisma.halls.findFirst({
             where: {
                 idHall: req.params.id * 1
+            },
+            include: {
+                TeacherHalls: {
+                    include: {
+                        teacher: {
+                            include: {
+                                role: true
+                            }
+                        },
+                        group: true,
+                    }
+                },
             }
         })
         console.log("🚀 ~ file: hall.controller.js ~ line 82 ~ findOne ~ getById", getById)
