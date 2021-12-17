@@ -9,6 +9,7 @@ import GroupRoute from './routes/group.routes.js'
 import HallRoutes from './routes/hall.routes.js'
 import TeacherRoutes from './routes/teacher.routes.js'
 import TeacherHallsRoutes from './routes/teacherHalls.routes.js'
+import RoleRoutes from './routes/role.routes.js'
 
 const App = express()
 dotenv.config()
@@ -22,6 +23,7 @@ GroupRoute(App)
 HallRoutes(App)
 TeacherRoutes(App)
 TeacherHallsRoutes(App)
+RoleRoutes(App)
 
 App.use(
     history({
@@ -31,5 +33,5 @@ App.use(
 )
 
 App.listen(process.env.PORT || 3000, () => {
-    console.log(`Server Running on http://localhost:${process.env.PORT || 3000}`)
+    console.log(`Server Running on http://localhost:${process.env.PORT || 5000}`)
 })

@@ -6,7 +6,7 @@ const AdminRoute = (app) => {
     app.get('/api/admin', find)
     app.get('/api/admin/:id', findOne)
     app.delete('/api/admin/:id', remove)
-    app.post('/api/admin/login', login)
+    app.post('/api/login', login)
 }
 
 export default AdminRoute;
