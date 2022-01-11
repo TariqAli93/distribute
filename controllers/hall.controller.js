@@ -28,6 +28,7 @@ export const update = async (req, res) => {
         res.status(500).send({ message: 'Invalid request, missing body' })
         console.log("🚀 ~ file: hall.controller.js ~ line 29 ~ update ~ Invalid request, missing body")
     } else {
+        console.log(req.params.id * 1)
         try {
             const updateHall = await prisma.halls.update({
                 data: {
@@ -38,7 +39,7 @@ export const update = async (req, res) => {
                     idHall: req.params.id * 1
                 }
             })
-            console.log("🚀 ~ file: hall.controller.js ~ line 38 ~ update ~ updateHall", updateHall)
+            console.log("🚀 ~ file: hall.controller.js ~ line 38 ~ update ~ updateHall")
             res.status(200).send(updateHall)
         } catch (error) {
             console.log("🚀 ~ file: hall.controller.js ~ line 41 ~ update ~ error", error.message)
@@ -78,7 +79,7 @@ export const find = async (req, res) => {
                 },
             }
         })
-        console.log("🚀 ~ file: hall.controller.js ~ line 67 ~ find ~ getAll", getAll)
+        console.log("🚀 ~ file: hall.controller.js ~ line 67 ~ find ~ getAll")
         res.status(200).send(getAll)
     } catch (error) {
         console.log("🚀 ~ file: hall.controller.js ~ line 68 ~ find ~ error", error.message)
