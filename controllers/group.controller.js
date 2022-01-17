@@ -9,7 +9,7 @@ export const create = async (req, res) => {
         try {
             const createGroup = await prisma.groups.create({
                 data: {
-                    GroupName: req.body.groupName
+                    GroupName: req.body.GroupName
                 }
             })
             console.log("🚀 ~ file: group.controller.js ~ line 15 ~ create ~ createGroup", createGroup)
@@ -28,7 +28,7 @@ export const update = async (req, res) => {
         try {
             const updateGroup = await prisma.groups.update({
                 data: {
-                    GroupName: req.body.groupName
+                    GroupName: req.body.GroupName
                 },
                 where: {
                     idGroup: req.params.id * 1
