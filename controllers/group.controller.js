@@ -21,6 +21,7 @@ export const create = async (req, res) => {
     }
 }
 
+
 export const update = async (req, res) => {
     if (Object.keys(req.body).length < 1) {
         res.status(500).send({ message: 'Invalid request, missing body' })
