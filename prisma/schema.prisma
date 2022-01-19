@@ -20,39 +20,35 @@ model Admin {
 model Teachers {
   idTeacher    Int            @id @default(autoincrement())
   teacherName  String
-  role         Roles          @relation(fields: [roleId], references: [idRole])
-  roleId       Int
-  TeacherHalls TeacherHalls[]
+  role         Role           @default(ASSISTANT)
+  // TeacherHalls TeacherHalls[]
 }
 
-model Roles {
-  idRole       Int        @id @default(autoincrement())
-  roleName     String
-  rolePrefix   String
-  rolePriority Int
-  Teachers     Teachers[]
+enum Role {
+  CHIEF
+  ASSISTANT
 }
 
 model Halls {
   idHall          Int            @id @default(autoincrement())
   HallName        String
   HallContainment Int
-  TeacherHalls    TeacherHalls[]
+  // TeacherHalls    TeacherHalls[]
 }
 
 model Groups {
   idGroup      Int            @id @default(autoincrement())
   GroupName    String
-  TeacherHalls TeacherHalls[]
+  // TeacherHalls TeacherHalls[]
 }
 
-model TeacherHalls {
-  idTeacherHall   Int      @id @default(autoincrement())
-  teacherId       Int
-  hallId          Int
-  groupId         Int
-  isTeacherLeader Boolean  @default(false)
-  hall            Halls    @relation(fields: [hallId], references: [idHall])
-  teacher         Teachers @relation(fields: [teacherId], references: [idTeacher])
-  group           Groups   @relation(fields: [groupId], references: [idGroup])
-}
+// model TeacherHalls {
+//   idTeacherHall   Int      @id @default(autoincrement())
+//   teacherId       Int
+//   hallId          Int
+//   groupId         Int
+//   isTeacherLeader Boolean  @default(false)
+//   hall            Halls    @relation(fields: [hallId], references: [idHall])
+//   teacher         Teachers @relation(fields: [teacherId], references: [idTeacher])
+//   group           Groups   @relation(fields: [groupId], references: [idGroup])
+// }
