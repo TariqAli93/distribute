@@ -1,4 +1,4 @@
-import { create, update, remove, find, findOne } from '../controllers/group.controller.js';
+import { create, update, remove, find, findOne, counts } from '../controllers/group.controller.js';
 
 const GroupRoute = (app) => {
     app.post('/api/groups/add', create)
@@ -6,6 +6,7 @@ const GroupRoute = (app) => {
     app.delete('/api/group/:id', remove)
     app.get('/api/groups', find)
     app.get('/api/group/:id', findOne)
+    app.get('/api/countGroups', counts)
 }
 
 export default GroupRoute
