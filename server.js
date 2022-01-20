@@ -32,6 +32,6 @@ App.use(
     })
 )
 
-App.listen(process.env.PORT || 3000, () => {
+App.listen(process.env.PORT || 6789, () => {
     console.log(`Server Running on http://localhost:${process.env.PORT || 5000}`)
 })
