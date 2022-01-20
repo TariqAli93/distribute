@@ -84,3 +84,15 @@ export const findOne = async (req, res) => {
         res.status(500).send(error.message)
     }
 }
+
+
+export const counts = async (req, res) => {
+    try {
+        const count = await prisma.groups.count()
+        console.log("🚀 ~ file: group.controller.js ~ line 92 ~ counts ~ count", count)
+        res.status(200).send(count)
+    } catch (error) {
+        console.log("🚀 ~ file: group.controller.js ~ line 95 ~ counts ~ error", error)
+        res.status(500).send(error.message)
+    }
+}

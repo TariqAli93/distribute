@@ -90,3 +90,14 @@ export const findOne = async (req, res) => {
 
 	}
 }
+
+export const counts = async (req, res) => {
+	try {
+		const count = await prisma.halls.count()
+		console.log("🚀 ~ file: hall.controller.js ~ line 97 ~ countHalls ~ count", count)
+		res.status(200).send(count)
+	} catch (error) {
+		console.log("🚀 ~ file: hall.controller.js ~ line 100 ~ countHalls ~ error", error)
+		res.status(500).send(error.message)
+	}
+}
