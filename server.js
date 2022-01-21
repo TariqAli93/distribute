@@ -3,6 +3,9 @@ import history from 'connect-history-api-fallback'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
+import fileUpload from 'express-fileupload'
+
 
 import AdminRoute from './routes/admin.routes.js'
 import GroupRoute from './routes/group.routes.js'
@@ -17,6 +20,11 @@ App.use(cors())
 App.use(cookieParser())
 App.use(express.json())
 App.use(express.urlencoded({ extended: false }))
+App.use(bodyParser.json());
+App.use(bodyParser.urlencoded({extended: true}));
+App.use(fileUpload({
+    createParentPath: true
+}));
 
 AdminRoute(App)
 GroupRoute(App)

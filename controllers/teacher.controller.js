@@ -94,7 +94,7 @@ export const counts = async (req, res) => {
 	try {
 		const count = await prisma.teachers.count()
 		console.log("🚀 ~ file: teacher.controller.js ~ line 96 ~ counts ~ count", count)
-		res.status(200).send({count: count})
+		res.status(200).send({ count: count })
 	} catch (error) {
 		console.log("🚀 ~ file: teacher.controller.js ~ line 99 ~ counts ~ error", error)
 		res.status(500).send(error.message)
