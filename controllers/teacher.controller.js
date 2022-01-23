@@ -106,58 +106,29 @@ export const counts = async (req, res) => {
 }
 
 export const createByFile = async (req, res) => {
-	function generateRandomName(length, patientId) {
-		var result = ""
-		var characters =
-			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-		var charactersLength = characters.length
-		for (var i = 0; i < length; i++) {
-			result +=
-				characters.charAt(Math.floor(Math.random() * charactersLength)) +
-				patientId
-		}
-		return result
-	}
-
-
 	if (!req.files || Object.keys(req.files).length === 0) {
 		return res.status(400).send("No files were uploaded.")
 	}
 
 	else {
-		let uploadedFile = req.files.excel
-		let photoName = generateRandomName(5, 3)
-		var filename = uploadedFile.name
-		var ext = filename.substr(filename.lastIndexOf(".") + 1)
-		let imagePath = `${__dirname}/attachments/${photoName}.${ext}`
 		const cell = []
 
-		uploadedFile.mv(imagePath, function (err) {
-			if (err) return res.status(500).send(err)
-			const workbook = new Excel.Workbook()
-			const xlsx = workbook.xlsx.readFile(imagePath)
-
-			xlsx.then(file => {
-				file.worksheets[0].eachRow((row, rowNumber) => {
-					cell.push({
-						teacherName: row.getCell(1).value,
-						role: row.getCell(2).value
-					})
+		const workbook = new Excel.Workbook()
+		const xlsx = await workbook.xlsx.load(req.files.excel.data)
+		xlsx.worksheets[0].eachRow((row, rowNumber) => {
+			if (rowNumber !== 1) {
+				cell.push({
+					teacherName: row.getCell(1).value,
+					role: row.getCell(2).value === 1 ? 'CHIEF' : 'ASSISTANT'
 				})
-
-				prisma.teachers.createMany({
-					data: cell,
-				}).then(result => {
-					fs.unlink(imagePath, (err) => {
-						if (err) {
-							console.error(err)
-							return
-						}
-
-						res.send(result)
-					})
-				})
-			})
+			}
 		})
+
+		const createTeachers = await prisma.teachers.createMany({
+			data: cell
+		})
+
+		
+		res.status(200).send(createTeachers)
 	}
 }
