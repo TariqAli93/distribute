@@ -78,7 +78,7 @@ export const login = async (req, res) => {
 	}
 
 	try {
-		const login = await prisma.admin.findMany({
+		const login = await prisma.admin.findFirst({
 			where: {
 				AND: [
 					{
@@ -95,12 +95,15 @@ export const login = async (req, res) => {
 			}
 		})
 
-		if (login.length > 0) {
+
+		console.log(login)
+
+		if (login !== null) {
 			const token = jwt.sign(
 				{
-					idAdmin: login[0].idAdmin,
-					userName: login[0].userName,
-					password: login[0].password
+					idAdmin: login.idAdmin,
+					userName: login.userName,
+					password: login.password
 				},
 				process.env.JWT_SECRET,
 				{
